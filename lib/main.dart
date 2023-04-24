@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tip Calc ',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'MohammedAmin-TipCalc'),
+      home: const MyHomePage(title: 'Mohammed Amin Tip Calculator'),
     );
   }
 }
@@ -48,18 +48,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String t1 = '', t2 = '', result = 'init';
-  double num2 = 0.0;
-  TipCalculate t = TipCalculate();
+  String t1='', t2='', result='init';double num2=0.0;
+  TipCalculate t=TipCalculate();
   void _incrementCounter() {
     setState(() {
+      if (t2=='') result='Enter bill amount please';
+      else if (t1=='') result='Enter a letter for service';
+      else result=t.tip(bill: num2,service: t1);
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      //_counter++;
     });
   }
 
@@ -83,48 +84,49 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Tip Calc", style: TextStyle(fontSize: 22)),
+              padding: const EdgeInsets.all(14.0),
+              child: Text(result, style: TextStyle(fontSize: 22)),
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
-              child: TextField(decoration:
-              InputDecoration(labelText: 'Enter the bill amount',
-                border: OutlineInputBorder(),),
-                keyboardType : TextInputType.number, onChanged: (text){
-                t2 = text;
-                num2 = double.parse(t2);
-              },),
+              child: TextField(decoration: InputDecoration(labelText: 'Enter the bill amount please.',
+                border: OutlineInputBorder(),),keyboardType: TextInputType.number,
+                  onChanged: (text){
+                    t2=text;
+                    num2=double.parse(t2);
+                  }),
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
-              child: TextField(decoration:
-              InputDecoration(labelText: 'g=good, a=all right, n= not bad, p=poor',
-                border: OutlineInputBorder(),),
-                keyboardType : TextInputType.number, onChanged: (text){
-                  t1 = text;
-                },),
+              child: TextField(decoration: InputDecoration(labelText: 'g-good, a-allright, n-notbad, p-poor.',
+                border: OutlineInputBorder(),),keyboardType: TextInputType.text,
+                onChanged: (text){
+                  t1=text;
+                },
+              ),
             )
+
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add_business_sharp),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
 class TipCalculate{
-  String service=''; double bill=0.0, tiprate=0.0;
-  TipCalculate({this.bill=0.0, this.service=''});
+  String service=''; double bill=0.0,tiprate=0.0;
+  TipCalculate({this.bill=0.0,this.service=''});
   String tip({bill,service}){
-    if (service.toString().toLowerCase() =='g') tiprate=.25;
-    else if (service.toLowerCase() =='a') tiprate=.15;
-    else if (service.toLowerCase() =='n') tiprate=.1;
-    else if (service.toLowerCase() =='p') tiprate=.00;
+    if (service.toLowerCase()== 'g') tiprate=0.25;
+    else if (service.toLowerCase()=='a') tiprate= 0.15;
+    else if (service.toLowerCase()=='n') tiprate= 0.1;
+    else if (service.toLowerCase()=='p') tiprate= 0.0;
     else return 'Invalid Entry';
-    return 'Tip is ${bill * tiprate}';
+    return 'Tip is \$${bill * tiprate}';
   }
 }
