@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
-              child: TextField(decoration: InputDecoration(labelText: 'Enter the bill amount please.',
+              child: TextField(decoration: InputDecoration(labelText: 'Enter the total bill amount please.',
                 border: OutlineInputBorder(),),keyboardType: TextInputType.number,
                   onChanged: (text){
                     t2=text;
